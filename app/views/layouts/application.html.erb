@@ -18,9 +18,9 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="flex flex-col min-h-screen">
     <%= render '/shared/nav'%>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <main class="container mx-auto mt-28 px-5 flex-grow">
       <%= yield %>
       
     </main>

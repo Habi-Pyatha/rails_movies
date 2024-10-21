@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_21_072151) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_21_123107) do
   create_table "movies", force: :cascade do |t|
     t.string "original_title"
     t.text "overview"
     t.text "poster_path"
     t.integer "runtime"
     t.string "status"
-    t.integer "imdb_id"
+    t.string "imdb_id"
     t.integer "tmdb_id"
     t.float "vote_average"
     t.integer "vote_count"

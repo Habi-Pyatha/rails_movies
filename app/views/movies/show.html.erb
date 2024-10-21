@@ -1,19 +1,32 @@
+<div class="relative w-full">
+    <% img = "https://image.tmdb.org/t/p/w200#{@movie_json["poster_path"]}" %>
+    <% back_img = "https://image.tmdb.org/t/p/w200#{@movie_json["backdrop_path"]}" %>
 
-<div class="relative w-full ">
-    <% img="https://image.tmdb.org/t/p/w200#{@movie_json["poster_path"]}"%>
-    <% back_img="https://image.tmdb.org/t/p/w200#{@movie_json["backdrop_path"]}"%>
+    <!-- Background Image -->
+    <img class="w-full h-auto object-cover" src="<%= back_img %>" alt="Backdrop">
 
-    <img class="w-full " src="<%=back_img%>" alt="">
-    
-        <img class="w-1/4 h-auto object-cover absolute top-6 left-2"src=<%=img%> alt="pic">
-        <h2 class="text-red-500 absolute top-4 text-4xl left-1/2"><%=@movie_json["original_title"]%> </h2>
-        <p class="absolute top-1/2 left-1/3 text-white text-justify"><%=@movie_json["overview"]%> </p>
+    <!-- Overlay Content -->
+    <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center p-4">
+        <!-- Poster Image -->
+        <img class="w-40 h-auto object-cover rounded-md shadow-lg" src="<%= img %>" alt="Poster">
+
+        <!-- Movie Details -->
+        <div class="ml-4 text-white max-w-lg">
+            <h2 class="text-red-500 text-4xl font-bold mb-2"><%= @movie_json["original_title"] %></h2>
+            <p class="text-white text-base leading-relaxed text-justify bg-black bg-opacity-50 p-4 rounded-md shadow-lg">
+    <%= @movie_json["overview"] %>
+</p>
+
+        </div>
+    </div>
 </div>
-<div>
-runtime:<%= @movie_json["runtime"]%>
-status:<%=@movie_json["status"]%>
-imdb_id:<%=@movie_json["imdb_id"]%>
-tmdb_id:<%=@movie_json["id"]%>
-vote_average:<%=@movie_json["vote_average"]%>
-vote_count:<%=@movie_json["vote_count"]%>
+
+<!-- New Container to Clear Absolute Positioning -->
+<div class="clear-both pt-6 bg-pink-300">
+    <p>Runtime: <%= @movie_json["runtime"] %> minutes</p>
+    <p>Status: <%= @movie_json["status"] %></p>
+    <p>IMDB ID: <%= @movie_json["imdb_id"] %></p>
+    <p>TMDB ID: <%= @movie_json["id"] %></p>
+    <p>Vote Average: <%= @movie_json["vote_average"] %></p>
+    <p>Vote Count: <%= @movie_json["vote_count"] %></p>
 </div>
