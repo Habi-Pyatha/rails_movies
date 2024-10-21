@@ -1,0 +1,14 @@
+<div class="grid grid-cols-3 gap-4">
+<% @movies_results.each do |movie|%>
+
+<a href="<%=movie_path(movie["id"])%>">
+    <div class="m-1.5">
+        <% img="#{@img}#{movie["backdrop_path"]}"%>
+        <img class="w-full h-full object-cover"src=<%=img%> alt="pic">
+
+        <div><%= movie["original_title"] %></div>
+
+    </div>
+</a>    
+<% end%>
+</div>
