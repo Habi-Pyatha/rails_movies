@@ -30,3 +30,13 @@
     <p>Vote Average: <%= @movie_json["vote_average"] %></p>
     <p>Vote Count: <%= @movie_json["vote_count"] %></p>
 </div>
+
+<%# Review starts here %>
+<h2 class="text-blue-700 text-center">Reviews for <%= @movie_json["original_title"]%> </h2>
+<%@reviews_json.each do |review|%>
+   <div class="bg-green-300 mb-2"> name:<%=review["author"]%> <br>
+    content:<%=review["content"]%> <br>
+    rating:<%=review["author_details"]["rating"]%> <br> <br>
+    </div>
+<%end%>
+
