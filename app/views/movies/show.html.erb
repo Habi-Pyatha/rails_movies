@@ -1,6 +1,6 @@
 <div class="relative w-full">
-    <% img = "https://image.tmdb.org/t/p/w200#{@movie_json["poster_path"]}" %>
-    <% back_img = "https://image.tmdb.org/t/p/w200#{@movie_json["backdrop_path"]}" %>
+    <% img = "https://image.tmdb.org/t/p/w200#{@found_movie["poster_path"]}" %>
+    <% back_img = "https://image.tmdb.org/t/p/w200#{@found_movie["backdrop_path"]}" %>
 
     <!-- Background Image -->
     <img class="w-full h-auto object-cover" src="<%= back_img %>" alt="Backdrop">
@@ -12,9 +12,9 @@
 
         <!-- Movie Details -->
         <div class="ml-4 text-white max-w-lg">
-            <h2 class="text-red-500 text-4xl font-bold mb-2"><%= @movie_json["original_title"] %></h2>
+            <h2 class="text-red-500 text-4xl font-bold mb-2"><%= @found_movie["original_title"] %></h2>
             <p class="text-white text-base leading-relaxed text-justify bg-black bg-opacity-50 p-4 rounded-md shadow-lg">
-    <%= @movie_json["overview"] %>
+    <%= @found_movie["overview"] %>
 </p>
 
         </div>
@@ -23,27 +23,27 @@
 
 <!-- New Container to Clear Absolute Positioning -->
 <div class="clear-both pt-6 bg-pink-300">
-    <p>Runtime: <%= @movie_json["runtime"] %> minutes</p>
-    <p>Status: <%= @movie_json["status"] %></p>
-    <p>IMDB ID: <%= @movie_json["imdb_id"] %></p>
-    <p>TMDB ID: <%= @movie_json["id"] %></p>
-    <p>Vote Average: <%= @movie_json["vote_average"] %></p>
-    <p>Vote Count: <%= @movie_json["vote_count"] %></p>
+    <p>Runtime: <%= @found_movie["runtime"] %> minutes</p>
+    <p>Status: <%= @found_movie["status"] %></p>
+    <p>IMDB ID: <%= @found_movie["imdb_id"] %></p>
+    <p>TMDB ID: <%= @found_movie["id"] %></p>
+    <p>Vote Average: <%= @found_movie["vote_average"] %></p>
+    <p>Vote Count: <%= @found_movie["vote_count"] %></p>
 </div>
 
 <%# Review starts here %>
-<h2 class="text-blue-700 text-center">Reviews for <%= @movie_json["original_title"]%> </h2>
-<%@reviews_saved.each do |review|%>
-   <div class="bg-green-300 mb-2 text-justify"> name:<%=review.user_id%> <br>
-    content:<%=review.comment%> <br>
-    rating:<%=review.rating%> <br> <br>
-    </div>
-<%end%>
+
 
 <%@reviews_json.each do |review|%>
    <div class="bg-green-300 mb-2"> name:<%=review["author"]%> <br>
     content:<%=review["content"]%> <br>
     rating:<%=review["author_details"]["rating"]%> <br> <br>
+    </div>
+<%end %>
+<%@comments.each do |review|%>
+   <div class="bg-green-300 mb-2"> user_id:<%=review["user_id"]%> <br>
+    content:<%=review["comment"]%> <br>
+    rating:<%=review["rating"]%> <br> <br>
     </div>
 <%end %>
 
@@ -53,10 +53,10 @@
 
 <h1>Add Review</h1>
 <%# <div class="bg-yellow-400 flex justify-center"> %>
-    <%= form_with(model: @user, url: movies_path) do |f| %>
+    <%= form_with model: @review, url: reviews_path(@review),method: "post" do |f| %>
     <div class="field">
         <%= f.label :movie_id,"Movie Id:" %>
-        <%= f.number_field :movie_id,readonly:true, value:@movie_id %>
+        <%= f.number_field :movie_id,readonly:true, value:@found_movie["id"] %>
     </div>
     <div class="field">
         <%= f.label :user_id,"User Id:" %>

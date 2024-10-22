@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   # root "posts#index"
   root "movies#index"
   resources :movies, only: [ :index, :show, :create ]
+  resources :reviews, only: [ :new, :create ]
 end
