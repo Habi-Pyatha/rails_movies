@@ -56,6 +56,7 @@ group :test do
   gem "selenium-webdriver"
 end
 gem "http"
+gem "simple_form"
 gem "tailwindcss-rails", "~> 3.0"
 
 gem "dotenv-rails", groups: [ :development, :test ]

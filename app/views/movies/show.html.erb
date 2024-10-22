@@ -33,10 +33,49 @@
 
 <%# Review starts here %>
 <h2 class="text-blue-700 text-center">Reviews for <%= @movie_json["original_title"]%> </h2>
+<%@reviews_saved.each do |review|%>
+   <div class="bg-green-300 mb-2 text-justify"> name:<%=review.user_id%> <br>
+    content:<%=review.comment%> <br>
+    rating:<%=review.rating%> <br> <br>
+    </div>
+<%end%>
+
 <%@reviews_json.each do |review|%>
    <div class="bg-green-300 mb-2"> name:<%=review["author"]%> <br>
     content:<%=review["content"]%> <br>
     rating:<%=review["author_details"]["rating"]%> <br> <br>
     </div>
-<%end%>
+<%end %>
 
+<%# simple form for %>
+
+
+
+<h1>Add Review</h1>
+<%# <div class="bg-yellow-400 flex justify-center"> %>
+    <%= form_with(model: @user, url: movies_path) do |f| %>
+    <div class="field">
+        <%= f.label :movie_id,"Movie Id:" %>
+        <%= f.number_field :movie_id,readonly:true, value:@movie_id %>
+    </div>
+    <div class="field">
+        <%= f.label :user_id,"User Id:" %>
+        <%= f.number_field :user_id %>
+    </div>
+
+    <div class="field">
+        <%= f.label :comment,"Comment:" %>
+        <%= f.text_field :comment %>
+    </div>
+
+    <div class="field">
+        <%= f.label :rating,"Rating (0-10):"%>
+        <%= f.range_field :rating, min:0, max:10, step:1, class:"slider",oninput: "document.getElementById('ratingValue').innerHTML=this.value" %>
+        <span id="ratingValue"></span>
+    </div>
+
+    <div class="actions border-white">
+        <%= f.submit 'Submit Review',class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
+    </div>
+    <% end %>
+<%# </div> %>

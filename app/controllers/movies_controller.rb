@@ -36,8 +36,24 @@ class MoviesController < ApplicationController
       review_response=HTTP.get("#{review_url}&api_key=#{ENV["API_KEY"]}")
       if review_response.status.success?
         @reviews=review_response.body.to_s
-        @reviews_js=JSON.parse(@reviews)
-        @reviews_json=@reviews_js["results"]
+        @reviews_json=JSON.parse(@reviews)["results"]
+        # @reviews_json=@reviews_js["results"]
+        @reviews_json.each do |review|
+          new=Review.create(
+            # movie_id: Movie.find_by(tmdb_id: @movie_json["id"]).id,
+            movie_id: @movie_json["id"],
+            # author: review["author"],
+            user_id: 123,
+            comment: review["content"],
+            rating: review.dig("author_details", "rating")
+
+            )
+          end
+
+        # @reviews_saved = Review.where(movie_id: @movie_json["id"])
+        @reviews_saved=Review.all
+        # @reviews_saved=Review.where(movie_id: Movie.find_by(tmdb_id: @movie_json["id"]).id)
+
         # render json: @revies_json
         # @movie_review=Movie.includes(:reviews).find(params[:id])
         # @reviews=@movie_review.reviews
@@ -49,7 +65,21 @@ class MoviesController < ApplicationController
       logger.error("Failed to fetch movie:#{response.status}-#{response.body}")
     end
   end
-
+  def new
+    @user=Review.new
+  end
   def create
+    @user_review=Review.new(review_params)
+    if @user_review.save
+      render json: @user_review, status: :created
+    else
+      render json: { error: "Missing Parameters" }, status: :bad_request
+    end
+  end
+
+  private
+
+  def review_params
+    params.require(:review).permit(:movie_id, :user_id, :comment, :rating)
   end
 end
