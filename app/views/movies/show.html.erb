@@ -42,7 +42,7 @@
 <%end %>
 <%=turbo_frame_tag "reviews" do%>
     <%@comments.each do |review|%>
-        <%=render review%>
+        <%=render 'shared/review', review: %>
     <%end %>
 <%end%>
 <%# simple form for %>

@@ -1,3 +1,5 @@
 <%= turbo_stream.append "reviews" do %>
-  <%= render @review %>
+  <%= render "shared/review",review: @review %>
+<%# @review.inspect %>
 <% end %>
+
