@@ -18,6 +18,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
+gem "active_model_serializers"
 group :development do
   gem "annotate"
 end
