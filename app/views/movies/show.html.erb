@@ -40,18 +40,17 @@
     rating:<%=review["author_details"]["rating"]%> <br> <br>
     </div>
 <%end %>
-<%@comments.each do |review|%>
-   <div class="bg-green-300 mb-2"> user_id:<%=review["user_id"]%> <br>
-    content:<%=review["comment"]%> <br>
-    rating:<%=review["rating"]%> <br> <br>
-    </div>
-<%end %>
-
+<%=turbo_frame_tag "reviews" do%>
+    <%@comments.each do |review|%>
+        <%=render review%>
+    <%end %>
+<%end%>
 <%# simple form for %>
 
 
 
 <h1>Add Review</h1>
+
 <%# <div class="bg-yellow-400 flex justify-center"> %>
     <%= form_with model: @review, url: reviews_path(@review),method: "post" do |f| %>
     <div class="field">
@@ -78,4 +77,5 @@
         <%= f.submit 'Submit Review',class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
     </div>
     <% end %>
+
 <%# </div> %>

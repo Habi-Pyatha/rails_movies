@@ -4,15 +4,18 @@ class ReviewsController < ApplicationController
   end
   def create
     @review=Review.new(review_params)
-    puts "testing......."
-     puts @review.movie_id
-     puts @review.user_id
-     puts @review.comment
-     puts @review.rating
+     # puts "testing......."
+     #  puts @review.movie_id
+     #  puts @review.user_id
+     #  puts @review.comment
+     #  puts @review.rating
      # run= JSON.parse(@review)
      # puts run
      if @review.save
-      redirect_to movie_path(@review.movie.tmdb_id)
+      respond_to do |format|
+       format.html { redirect_to movie_path(@review.movie.tmdb_id) }
+       format.turbo_stream
+      end
      else
       puts @review.errors.full_messages
     flash[:error] = @review.errors.full_messages.to_sentence
