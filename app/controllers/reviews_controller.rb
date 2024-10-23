@@ -21,13 +21,19 @@ class ReviewsController < ApplicationController
     flash[:error] = @review.errors.full_messages.to_sentence
         redirect_to movies_path
      end
-
-    # if @user.save
-    #   # render json: @user_review, status: :created
-    # else
-    #   render json: { error: "Missing Parameters" }, status: :bad_request
-    # end
   end
+    def destroy
+          # debugger
+          # @review = Review.
+          @review=Review.find(params[:id])
+          @review.destroy
+        respond_to do |format|
+          format.html { redirect_to movie_path(@review.movie.tmdb_id), notice: "Review was sucessfully destroyed." }
+          format.turbo_stream
+        end
+    end
+
+
 
   private
 
