@@ -12,7 +12,7 @@
 
         <!-- Movie Details -->
         <div class="ml-4 text-white max-w-lg">
-            <h2 class="text-red-500 text-4xl font-bold mb-2"><%= @found_movie["original_title"] %></h2>
+            <h2 class="text-red-500 text-4xl font-bold mb-2 bg-black bg-opacity-50"><%= @found_movie["original_title"] %></h2>
             <p class="text-white text-base leading-relaxed text-justify bg-black bg-opacity-50 p-4 rounded-md shadow-lg">
     <%= @found_movie["overview"] %>
 </p>
@@ -43,6 +43,7 @@
 <%=turbo_frame_tag "reviews" do%>
     <%@comments.each do |review|%>
         <%=render 'shared/review', review: %>
+        <%# <%=review.id.inspect%> 
     <%end %>
 <%end%>
 <%# simple form for %>
@@ -51,13 +52,13 @@
 
 <h1>Add Review</h1>
 
-<%# <div class="bg-yellow-400 flex justify-center"> %>
+<div class="border rounded p-5 ml-3 mb-3 shadow"> 
     <%= form_with model: @review, url: reviews_path(@review),method: "post" do |f| %>
-    <div class="field">
+    <div class="field mb-3">
         <%= f.label :movie_id,"Movie Id:" %>
         <%= f.number_field :movie_id,readonly:true, value:@found_movie["id"] %>
     </div>
-    <div class="field">
+    <div class="field mb-3">
         <%= f.label :user_id,"User Id:" %>
         <%= f.number_field :user_id %>
     </div>
@@ -78,4 +79,4 @@
     </div>
     <% end %>
 
-<%# </div> %>
+</div> 
