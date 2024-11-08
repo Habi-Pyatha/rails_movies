@@ -1,7 +1,6 @@
 # README
 Video:
 
-https://github.com/user-attachments/assets/de591b9f-49d1-4357-bf97-2a02a630db7f
 
 https://github.com/user-attachments/assets/bd14cc06-480a-416a-aadb-c29eb6241bfb
 
